@@ -27,3 +27,7 @@ test("runner: 20 + 1 * 10 - 5 * 3", () => {
 test("runner: 20 - 10 * 10 / 5 - 3", () => {
   expect(runner("20 - 10 * 10 / 5 - 3")).toEqual(-3);
 });
+
+test("runner: 1e3 + 32", () => {
+  expect(runner("1e3 + 32")).toEqual(1032);
+});

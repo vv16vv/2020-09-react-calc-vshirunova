@@ -19,3 +19,7 @@ test("parser: 1 + + 33 - 2", () => {
 test("parser: 1 ! 33 - 2", () => {
   expect(() => parser("1 ! 33 - 2")).toThrow(TypeError("Unexpected string"));
 });
+
+test("parser: 1e3 + 32", () => {
+  expect(parser("1e3 + 32")).toEqual([1e3, "+", 32]);
+});
