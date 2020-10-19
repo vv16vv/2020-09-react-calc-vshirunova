@@ -2,11 +2,11 @@ import { ParsedLineType } from "./parser";
 import { isNumber } from "./helpers";
 import {
   mathOperators,
-  mathPriorities,
+  MathPriorities,
   mathOperatorsPriorities,
 } from "./mathOperators";
 
-const { FIRST, SECOND } = mathPriorities;
+const { FIRST, SECOND } = MathPriorities;
 
 export const firstPrioritiesCalc = (stack: ParsedLineType): ParsedLineType => {
   let result: ParsedLineType = [];
