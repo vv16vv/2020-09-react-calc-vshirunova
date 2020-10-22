@@ -27,6 +27,10 @@ describe("Expressions without parentheses should be calculated according to prio
     test("function and binary: [sin, 1, +, cos, 1] -> 19 (sin 1 + cos 1 -> 0.841 + 0.540 -> 1.382)", () => {
         expect(parLessExpressionCalc(["sin", 1, "+", "cos", 1])).toBeCloseTo(1.382, 3);
     });
+
+    test("one number: [5] -> 5", () => {
+        expect(parLessExpressionCalc([5])).toBe(5);
+    });
 });
 
 describe("Expressions with parentheses should be calculated according to priorities", () => {
@@ -42,7 +46,37 @@ describe("Expressions with parentheses should be calculated according to priorit
         expect(parenthesesPrioritiesCalc(["**", "sin", "(", Math.PI, "/", 4, ")", "+", "**", "cos", "(", Math.PI, "/", 4, ")"])).toBeCloseTo(1, 3);
     });
 
-    test("nested parenthesis: [4! / (1 + (**2 / 2 - 1) )] -> 4.8", () => {
+    test("nested parentheses: [4! / (1 + (**2 / 2 - 1) )] -> 4.8", () => {
         expect(parenthesesPrioritiesCalc([4, "!", "/", "(", 1, "+", "(", "**", 2, "/", "(", 2, "-", 1, ")", ")", ")"])).toBeCloseTo(4.8, 3);
+    });
+
+    test("one number in parentheses: [(1)] -> 1", () => {
+        expect(parenthesesPrioritiesCalc(["(", 1, ")"])).toBe(1);
+    });
+});
+
+describe("Incorrect expressions with/without parentheses should fail", () => {
+    test("empty parentheses: [()] -> ", () => {
+        expect(() => parenthesesPrioritiesCalc(["(", ")"])).toThrow(Error("Cannot calculate the expression"));
+    });
+
+    test("incorrect order of parentheses: [), 5, (] -> ", () => {
+        expect(() => parenthesesPrioritiesCalc([")", 5, "("])).toThrow(Error("Incorrect parentheses"));
+    });
+
+    test("absent closing parenthesis: [(, 5] -> ", () => {
+        expect(() => parenthesesPrioritiesCalc(["(", 5])).toThrow(Error("Cannot calculate the expression"));
+    });
+
+    test("absent opening parenthesis: [5, )] -> ", () => {
+        expect(() => parenthesesPrioritiesCalc([5, ")"])).toThrow(Error("Incorrect parentheses"));
+    });
+
+    test("no operator: [1, 33]", () => {
+        expect(() => parenthesesPrioritiesCalc([1, 33])).toThrow(Error("Cannot calculate the expression"));
+    });
+
+    test("no operand: [1, +, +, 33, -, 2]", () => {
+        expect(() => parenthesesPrioritiesCalc([1, "+", "+", 33, "-", 2])).toThrow(Error("Cannot calculate the expression"));
     });
 });
