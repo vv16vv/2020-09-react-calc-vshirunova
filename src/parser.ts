@@ -8,14 +8,10 @@ export const parser = (line: string): ParsedLineType | null => {
   const stack = line.split(" ");
 
   for (let key = 0; key < stack.length; key++) {
-    const prevItem = stack[key - 1];
     const item = stack[key];
 
-    const isValidNumberPush = !isNumber(prevItem) && isNumber(item);
-    const isValidOperatorPush =
-      isNumber(prevItem) &&
-      !isNumber(item) &&
-      mathOperators.hasOwnProperty(item);
+    const isValidNumberPush = isNumber(item);
+    const isValidOperatorPush = mathOperators.hasOwnProperty(item);
 
     if (isValidNumberPush) {
       result.push(Number(item));
