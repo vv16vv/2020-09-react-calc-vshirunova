@@ -8,7 +8,7 @@ export enum OperationKind {
 }
 
 export enum MathPriorities {
-    PARENTHESIS = 7,
+    PARENTHESES = 7,
     FUNCTIONS = 6,
     UNARY_PRE = 5,
     UNARY_POST = 4,

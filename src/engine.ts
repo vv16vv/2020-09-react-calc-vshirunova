@@ -108,7 +108,7 @@ export const parLessExpressionCalc = (stack: ParsedLineType): number => {
 
 }
 
-export const parenthesisPrioritiesCalc = (stack: ParsedLineType): number => {
+export const parenthesesPrioritiesCalc = (stack: ParsedLineType): number => {
     let result: ParsedLineType = [];
 
     const openPar = "(";
@@ -126,7 +126,7 @@ export const parenthesisPrioritiesCalc = (stack: ParsedLineType): number => {
                 break;
             }
             case closePar: {
-                if (openPars.length === 0) throw SyntaxError("Incorrect parenthesis");
+                if (openPars.length === 0) throw SyntaxError("Incorrect parentheses");
                 const pairedOpenPar = openPars.pop();
                 const innerExpr = result.slice(pairedOpenPar + 1);
                 result[pairedOpenPar] = parLessExpressionCalc(innerExpr);

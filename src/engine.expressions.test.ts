@@ -1,9 +1,9 @@
 import {
-    parenthesisPrioritiesCalc,
+    parenthesesPrioritiesCalc,
     parLessExpressionCalc,
 } from "./engine";
 
-describe("Expressions without parenthesis should be calculated according to priorities", () => {
+describe("Expressions without parentheses should be calculated according to priorities", () => {
     test("highest priority at the begin: [5, !, + 6] -> 126", () => {
         expect(parLessExpressionCalc([5, "!", "+", 6])).toBe(126);
     });
@@ -29,20 +29,20 @@ describe("Expressions without parenthesis should be calculated according to prio
     });
 });
 
-describe("Expressions with parenthesis should be calculated according to priorities", () => {
-    test("parenthesis, changing the calculation order: [(, 1, +, 2, ), *, **, 3] -> 27 (( 1 + 2 ) * **3 -> 3 * **3 -> 3 * 9 -> 27)", () => {
-        expect(parenthesisPrioritiesCalc(["(", 1, "+", 2, ")", "*", "**", 3])).toBe(27);
+describe("Expressions with parentheses should be calculated according to priorities", () => {
+    test("parentheses, changing the calculation order: [(, 1, +, 2, ), *, **, 3] -> 27 (( 1 + 2 ) * **3 -> 3 * **3 -> 3 * 9 -> 27)", () => {
+        expect(parenthesesPrioritiesCalc(["(", 1, "+", 2, ")", "*", "**", 3])).toBe(27);
     });
 
-    test("parenthesis at function: [fib, (, 2, *, 3, ), -, (, 1, +, 2, ), *, **3] -> -19 (fib(2*3) - (1+2)* **3 -> fib 6 - 3 * **3 -> 8 - 3 * **3 -> 8 - 3 * 9 -> 8 - 27 -> -19)", () => {
-        expect(parenthesisPrioritiesCalc(["fib", "(", 2, "*", 3, ")", "-", "(", 1, "+", 2, ")", "*", "**", 3])).toBe(-19);
+    test("parentheses at function: [fib, (, 2, *, 3, ), -, (, 1, +, 2, ), *, **3] -> -19 (fib(2*3) - (1+2)* **3 -> fib 6 - 3 * **3 -> 8 - 3 * **3 -> 8 - 3 * 9 -> 8 - 27 -> -19)", () => {
+        expect(parenthesesPrioritiesCalc(["fib", "(", 2, "*", 3, ")", "-", "(", 1, "+", 2, ")", "*", "**", 3])).toBe(-19);
     });
 
-    test("parenthesis + different priorities: [**,sin, (, PI, /, 4, ), +, **,cos, (, PI, /, 4, )] -> 1", () => {
-        expect(parenthesisPrioritiesCalc(["**", "sin", "(", Math.PI, "/", 4, ")", "+", "**", "cos", "(", Math.PI, "/", 4, ")"])).toBeCloseTo(1, 3);
+    test("parentheses + different priorities: [**,sin, (, PI, /, 4, ), +, **,cos, (, PI, /, 4, )] -> 1", () => {
+        expect(parenthesesPrioritiesCalc(["**", "sin", "(", Math.PI, "/", 4, ")", "+", "**", "cos", "(", Math.PI, "/", 4, ")"])).toBeCloseTo(1, 3);
     });
 
     test("nested parenthesis: [4! / (1 + (**2 / 2 - 1) )] -> 4.8", () => {
-        expect(parenthesisPrioritiesCalc([4, "!", "/", "(", 1, "+", "(", "**", 2, "/", "(", 2, "-", 1, ")", ")", ")"])).toBeCloseTo(4.8, 3);
+        expect(parenthesesPrioritiesCalc([4, "!", "/", "(", 1, "+", "(", "**", 2, "/", "(", 2, "-", 1, ")", ")", ")"])).toBeCloseTo(4.8, 3);
     });
 });
